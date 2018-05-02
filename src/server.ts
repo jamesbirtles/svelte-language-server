@@ -11,7 +11,6 @@ import { HTMLPlugin } from './plugins/HTMLPlugin';
 import { CSSPlugin } from './plugins/CSSPlugin';
 import { wrapFragmentPlugin } from './api/wrapFragmentPlugin';
 import { TypeScriptPlugin } from './plugins/TypeScriptPlugin';
-import { EmmetPlugin } from './plugins/EmmetPlugin';
 
 export function startServer() {
     const connection = createConnection(
@@ -25,7 +24,6 @@ export function startServer() {
 
     manager.register(new SveltePlugin());
     manager.register(new HTMLPlugin());
-    manager.register(new EmmetPlugin());
     manager.register(wrapFragmentPlugin(new CSSPlugin(), CSSPlugin.matchFragment));
     manager.register(wrapFragmentPlugin(new TypeScriptPlugin(), TypeScriptPlugin.matchFragment));
 
