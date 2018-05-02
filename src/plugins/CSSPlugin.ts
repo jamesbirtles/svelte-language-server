@@ -76,22 +76,17 @@ export class CSSPlugin
 
         const type = document.getAttributes().type;
         const lang = getLanguageService(type);
-        lang.setCompletionParticipants
-        const completion = lang.doComplete(
-            document,
-            position,
-            stylesheet,
-        );
+        lang.setCompletionParticipants;
+        const completion = lang.doComplete(document, position, stylesheet);
         const emmetResults: CompletionList = {
             isIncomplete: true,
             items: [],
         };
-        lang.setCompletionParticipants([getEmmetCompletionParticipants(document, position, getLanguage(type), {}, emmetResults)]);
+        lang.setCompletionParticipants([
+            getEmmetCompletionParticipants(document, position, getLanguage(type), {}, emmetResults),
+        ]);
         const results = lang.doComplete(document, position, stylesheet);
-        return [
-            ...(results ? results.items : []),
-            ...emmetResults.items,
-        ]
+        return [...(results ? results.items : []), ...emmetResults.items];
     }
 
     async formatDocument(document: Document): Promise<TextEdit[]> {

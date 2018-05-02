@@ -41,11 +41,10 @@ export class HTMLPlugin implements HoverProvider, CompletionsProvider {
             isIncomplete: true,
             items: [],
         };
-        this.lang.setCompletionParticipants([getEmmetCompletionParticipants(document, position, 'html', {}, emmetResults)]);
+        this.lang.setCompletionParticipants([
+            getEmmetCompletionParticipants(document, position, 'html', {}, emmetResults),
+        ]);
         const results = this.lang.doComplete(document, position, html);
-        return [
-            ...results.items,
-            ...emmetResults.items,
-        ]
+        return [...results.items, ...emmetResults.items];
     }
 }
