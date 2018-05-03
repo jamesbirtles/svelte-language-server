@@ -64,7 +64,7 @@ export class TypeScriptPlugin implements DiagnosticsProvider, HoverProvider, For
         const config = await prettier.resolveConfig(document.getFilePath()!);
         const formattedCode = prettier.format(document.getText(), {
             ...config,
-            parser: getParserFromTypeAttribute(document.getAttributes().type), // TODO: select babylon if js only
+            parser: getParserFromTypeAttribute(document.getAttributes().type),
         });
 
         let indent = detectIndent(document.getText());
