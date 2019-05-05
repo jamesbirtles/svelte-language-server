@@ -415,10 +415,10 @@ path-to-regexp@^1.7.0:
   dependencies:
     isarray "0.0.1"
 
-prettier-plugin-svelte@0.4.1:
-  version "0.4.1"
-  resolved "https://registry.npmjs.org/prettier-plugin-svelte/-/prettier-plugin-svelte-0.4.1.tgz#6acea56fe6a9c1115e690ebb4810f51e14db727f"
-  integrity sha512-zaF3USufooA9AqhioUNLZi6Yy5jOgqRiL5/vSUdX7OH4fRxvfzC/FEwo4m/2CBg2WnhP0gh+ruf5HxCYrGiEvA==
+prettier-plugin-svelte@0.4.2:
+  version "0.4.2"
+  resolved "https://registry.npmjs.org/prettier-plugin-svelte/-/prettier-plugin-svelte-0.4.2.tgz#29f7ea4c8c2068674d950428ab7926fb8234190c"
+  integrity sha512-BjMxmU5aZJSW5hDEG3BhZ4GUzx28cgOkfwO/SOCxkCq/4qbAR2AoCtB+t7j2mg0TPJG0oA7glCDri8QpcTSuQA==
   dependencies:
     tslib "^1.9.3"
 
