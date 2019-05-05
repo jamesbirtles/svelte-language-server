@@ -15,7 +15,7 @@ import {
 import { SvelteDocument } from '../lib/documents/SvelteDocument';
 import { RawSourceMap, RawIndexMap, SourceMapConsumer } from 'source-map';
 import { PreprocessOptions, CompileOptions, Warning } from 'svelte/compiler';
-import { loadSvelte } from './svelte/loadSvelte';
+import { importSvelte, getSveltePackageInfo } from './svelte/sveltePackage';
 
 interface SvelteConfig extends CompileOptions {
     preprocess?: PreprocessOptions;
@@ -47,7 +47,7 @@ export class SveltePlugin implements DiagnosticsProvider, FormattingProvider {
         let source = document.getText();
 
         const config = await this.loadConfig(document.getFilePath()!);
-        const svelte = loadSvelte(document.getFilePath()!) as any;
+        const svelte = importSvelte(document.getFilePath()!) as any;
 
         const preprocessor = makePreprocessor(document as SvelteDocument, config.preprocess);
         source = (await svelte.preprocess(source, preprocessor)).toString();
@@ -104,10 +104,11 @@ export class SveltePlugin implements DiagnosticsProvider, FormattingProvider {
         }
 
         const config = await prettier.resolveConfig(document.getFilePath()!);
+        const sveltePkg = getSveltePackageInfo(document.getFilePath()!);
         const formattedCode = prettier.format(document.getText(), {
             ...config,
             plugins: [require.resolve('prettier-plugin-svelte')],
-            parser: 'svelte' as any,
+            parser: sveltePkg.version.major >= 3 ? ('svelte' as any) : 'html',
         });
 
         return [
