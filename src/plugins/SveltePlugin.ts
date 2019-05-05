@@ -1,4 +1,5 @@
 import cosmic from 'cosmiconfig';
+import * as prettier from 'prettier';
 import {
     DiagnosticsProvider,
     Document,
@@ -8,6 +9,8 @@ import {
     Fragment,
     Position,
     Host,
+    FormattingProvider,
+    TextEdit,
 } from '../api';
 import { SvelteDocument } from '../lib/documents/SvelteDocument';
 import { RawSourceMap, RawIndexMap, SourceMapConsumer } from 'source-map';
@@ -22,11 +25,12 @@ const DEFAULT_OPTIONS: CompileOptions = {
     dev: true,
 };
 
-export class SveltePlugin implements DiagnosticsProvider {
+export class SveltePlugin implements DiagnosticsProvider, FormattingProvider {
     public pluginId = 'svelte';
     public defaultConfig = {
         enable: true,
         diagnostics: { enable: true },
+        format: { enable: true },
     };
 
     private host!: Host;
@@ -92,6 +96,26 @@ export class SveltePlugin implements DiagnosticsProvider {
         } catch (err) {
             return { ...DEFAULT_OPTIONS, preprocess: {} };
         }
+    }
+
+    async formatDocument(document: Document): Promise<TextEdit[]> {
+        if (!this.host.getConfig<boolean>('svelte.format.enable')) {
+            return [];
+        }
+
+        const config = await prettier.resolveConfig(document.getFilePath()!);
+        const formattedCode = prettier.format(document.getText(), {
+            ...config,
+            plugins: [require.resolve('prettier-plugin-svelte')],
+            parser: 'svelte' as any,
+        });
+
+        return [
+            TextEdit.replace(
+                Range.create(document.positionAt(0), document.positionAt(document.getTextLength())),
+                formattedCode,
+            ),
+        ];
     }
 }
 
