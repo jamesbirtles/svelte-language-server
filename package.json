@@ -50,7 +50,7 @@
         "prettier-plugin-svelte": "0.7.0",
         "sinon": "^4.5.0",
         "source-map": "^0.7.3",
-        "svelte": "3.6.7",
+        "svelte": "^3.6.7",
         "typescript": "3.5.3",
         "vscode-css-languageservice": "4.0.2",
         "vscode-emmet-helper": "1.2.15",
