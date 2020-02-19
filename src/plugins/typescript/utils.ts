@@ -23,6 +23,7 @@ export function getScriptKindFromAttributes(attrs: Record<string, string>): ts.S
     const type = attrs.lang || attrs.type;
 
     switch (type) {
+        case 'ts':
         case 'typescript':
         case 'text/typescript':
             return ts.ScriptKind.TS;
