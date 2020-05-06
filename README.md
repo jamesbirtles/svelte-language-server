@@ -1,3 +1,5 @@
+# Work is being continued in the official [svelte language-tools repo](https://github.com/sveltejs/language-tools)
+
 # Svelte Language Server
 
 A language server (implementing the [language server protocol](https://microsoft.github.io/language-server-protocol/))
